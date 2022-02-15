@@ -5,7 +5,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>미니 프로젝트</title>
+    <title>게시판 메인</title>
     <!-- Bootstrap CDN -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
@@ -14,7 +14,7 @@
 </head>
 <body>
 
-<!-- 상단 메뉴 부분 -->
+<!-- 상단 메뉴 부분(navbar) -->
 <c:import url="/WEB-INF/views/include/top_menu.jsp"/>
 
 <!-- 게시판 미리보기 부분 -->

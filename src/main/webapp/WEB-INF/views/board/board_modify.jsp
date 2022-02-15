@@ -1,19 +1,17 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%-- 종종 주소에 jsessionid 라고 붙는 현상 방지 --%>
-<c:set var="root" value="${pageContext.request.contextPath }/"/>
+
 <!DOCTYPE html>
 <html>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>회원 정보 수정</title>
+    <title>미니 프로젝트</title>
     <!-- Bootstrap CDN -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
-
 </head>
 <body>
 
@@ -26,29 +24,34 @@
         <div class="col-sm-6">
             <div class="card shadow">
                 <div class="card-body">
-                    <form action="<c:url value="/member/modify"/>" method="get">
+                    <form action="board_modify.html" method="post">
                         <div class="form-group">
-                            <label for="user_name">이름</label>
-                            <input type="text" id="user_name" name="user_name" class="form-control" value="홍길동" disabled="disabled"/>
+                            <label for="board_writer_name">작성자</label>
+                            <input type="text" id="board_writer_name" name="board_writer_name" class="form-control" value="홍길동" disabled="disabled"/>
                         </div>
                         <div class="form-group">
-                            <label for="user_id">아이디</label>
-                            <input type="text" id="user_id" name="user_id" class="form-control" value="abc" disabled="disabled"/>
+                            <label for="board_date">작성날짜</label>
+                            <input type="text" id="board_date" name="board_date" class="form-control" value="2018-7-20" disabled="disabled"/>
                         </div>
                         <div class="form-group">
-                            <label for="user_pw">비밀번호</label>
-                            <input type="password" id="user_pw" name="user_pw" class="form-control" value="1234"/>
+                            <label for="board_subject">제목</label>
+                            <input type="text" id="board_subject" name="board_subject" class="form-control" value="제목입니다"/>
                         </div>
                         <div class="form-group">
-                            <label for="user_pw2">비밀번호 확인</label>
-                            <input type="password" id="user_pw2" name="user_pw2" class="form-control" value="1234"/>
+                            <label for="board_content">내용</label>
+                            <textarea id="board_content" name="board_content" class="form-control" rows="10" style="resize:none">본문입니다</textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="board_file">첨부 이미지</label>
+                            <img src="image/logo.png" width="100%"/>
+                            <input type="file" name="board_file" id="board_file" class="form-control" accept="image/*"/>
                         </div>
                         <div class="form-group">
                             <div class="text-right">
-                                <button type="submit" class="btn btn-primary">정보수정</button>
+                                <button type="submit" class="btn btn-primary">수정완료</button>
+                                <a href="<c:url value="/board/board_read"/>" class="btn btn-info">취소</a>
                             </div>
                         </div>
-
                     </form>
                 </div>
             </div>
