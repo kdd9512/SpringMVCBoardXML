@@ -15,6 +15,8 @@
 
     <!-- 스캔할 bean들이 모여있는 패키지를 지정한다. -->
     <context:component-scan base-package="controller"/>
+    <context:component-scan base-package="dao"/>
+    <context:component-scan base-package="service"/>
 
     <!-- Controller의 메서드에서 반환하는 문자열 앞 뒤에 붙힐 경로 정보를 셋팅한다. -->
     <beans:bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
@@ -23,8 +25,7 @@
     </beans:bean>
 
     <!-- 정적파일(이미지, 사운드, 동영상, JS, CSS 등등) 경로 셋팅 -->
-    <resources mapping="/webapp/resources/**" location="/resources/"/>
-
+    <resources mapping="/**" location="/resources/"/>
 
     <!-- properties 파일의 내용을 사용하기 위한 Bean 정의 -->
     <!-- PropertySourcesPlaceholderConfigurer API 는 deprecated 되어서(spring 5.2 부터) 더 이상 사용하지 않으므로,
@@ -50,6 +51,14 @@
     <beans:bean class="org.mybatis.spring.SqlSessionTemplate" id="sqlSessionTemplate">
         <beans:constructor-arg index="0" ref="sqlSession"/>
     </beans:bean>
+
+    <!-- interceptor 등록 -->
+    <interceptors>
+        <interceptor>
+            <mapping path="/**"/>
+            <beans:bean class="interceptor.TopMenuInterceptor"/>
+        </interceptor>
+    </interceptors>
 
 </beans:beans>
 
