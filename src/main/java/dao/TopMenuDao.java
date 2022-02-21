@@ -14,7 +14,7 @@ public class TopMenuDao {
     private SqlSessionTemplate sqlSessionTemplate;
 
     public List<BoardInfoBean> getTopMenuList(){
-        List<BoardInfoBean> topMenuList = sqlSessionTemplate.selectList("topmenu.get_topmenu_list");
+        List<BoardInfoBean> topMenuList = sqlSessionTemplate.selectList("navi.get_navi_list");
         return topMenuList;
     }
 

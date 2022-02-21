@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
+
 public class TopMenuInterceptor implements HandlerInterceptor {
 
     // Java 에서는 자동주입이 불가능하나 XML 에서는 가능하다.

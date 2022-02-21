@@ -53,6 +53,7 @@
     </beans:bean>
 
     <!-- interceptor 등록 -->
+
     <interceptors>
         <interceptor>
             <mapping path="/**"/>
