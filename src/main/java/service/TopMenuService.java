@@ -13,10 +13,8 @@ public class TopMenuService {
     @Autowired
     private TopMenuDao topMenuDao;
 
-
     public List<BoardInfoBean> getTopMenuList(){
-        List<BoardInfoBean> topMenuList = topMenuDao.getTopMenuList();
-        return topMenuList;
+        return topMenuDao.getTopMenuList();
     }
 
 }
