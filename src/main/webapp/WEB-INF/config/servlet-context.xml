@@ -44,7 +44,7 @@
     <!--  SqlSessionFactory 설정  -->
     <beans:bean class="org.mybatis.spring.SqlSessionFactoryBean" id="sqlSession">
         <beans:property name="dataSource" ref="basic_data_source"/>
-        <beans:property name="mapperLocations" value="/WEB-INF/mapper/*.xml"/>
+        <beans:property name="mapperLocations" value="/WEB-INF/mapper/*mapper.xml"/>
     </beans:bean>
 
     <!-- Query 동작을 위한 Bean 설정 -->
@@ -53,7 +53,6 @@
     </beans:bean>
 
     <!-- interceptor 등록 -->
-
     <interceptors>
         <interceptor>
             <mapping path="/**"/>
