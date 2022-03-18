@@ -60,6 +60,23 @@
         </interceptor>
     </interceptors>
 
+    <!-- MessageSources 등록 -->
+    <beans:bean class="org.springframework.context.support.ReloadableResourceBundleMessageSource" id="messageSource">
+        <!-- Encoding 깨짐 문제는 intellij 재시작하면 정상동작하나 만일을 위해 기본 Encoding 을 굳이 지정하였음 -->
+        <beans:property name="defaultEncoding" value="UTF-8" />
+        <beans:property name="basenames">
+            <beans:list>
+                <!-- errorMsg.properties 가 아님을 유의. -->
+                <beans:value>/WEB-INF/properties/errorMsg</beans:value>
+            </beans:list>
+        </beans:property>
+    </beans:bean>
+
+    <!-- Message 접근을 위한 접근자 등록 -->
+    <beans:bean class="org.springframework.context.support.MessageSourceAccessor">
+        <beans:constructor-arg ref="messageSource"/>
+    </beans:bean>
+
 </beans:beans>
 
 
