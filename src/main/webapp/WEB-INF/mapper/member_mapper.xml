@@ -3,8 +3,19 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="member">
     <select id="checkMemberIdExist" parameterType="java.lang.String" resultType="java.lang.String">
+        <![CDATA[
         select user_name
         from user_table
         where user_id = #{user_id}
+        ]]>
     </select>
+
+    <!-- 회원정보값을 집어넣어 보내야 하므로 parameterType 은 MemberInfoBean 이 된다. insert 이므로 resultType 은 없음(void)-->
+    <insert id="addMemberInfo" parameterType="beans.MemberInfoBean">
+        <![CDATA[
+            insert into user_table (user_idx, user_name, user_id, user_pw)
+            values ((select max(user_idx) + 1 from user_table ALIAS_FOR_SUBQUERY),
+                    #{user_name}, #{user_id}, #{user_pw})
+        ]]>
+    </insert>
 </mapper>

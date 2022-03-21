@@ -1,5 +1,6 @@
 package service;
 
+import beans.MemberInfoBean;
 import dao.MemberDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,4 +18,9 @@ public class MemberService {
         // 조건에 부합할 경우 true 를 반환한다.
         return user_name == null;
     }
+
+    public void addMemberInfo(MemberInfoBean joinMemberBean) {
+        memberDAO.addMemberInfo(joinMemberBean);
+    }
+
 }
