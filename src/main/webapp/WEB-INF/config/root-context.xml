@@ -3,5 +3,6 @@
 	   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	   xsi:schemaLocation="http://www.springframework.org/schema/beans
 	   					   http://www.springframework.org/schema/beans/spring-beans.xsd">
-
+		<!--loginMemberBean 이라는 이름의 session 으로 MemberInfoBean 을 주입.-->
+		<bean class="beans.MemberInfoBean" id="loginMemberBean" scope="session"/>
 </beans>
