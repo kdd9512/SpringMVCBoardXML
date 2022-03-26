@@ -3,13 +3,23 @@ package service;
 import beans.MemberInfoBean;
 import dao.MemberDAO;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
+
+import javax.annotation.Resource;
 
 @Service
 public class MemberService {
 
     @Autowired
     private MemberDAO memberDAO;
+
+    // xml 프로젝트는 서버 가동시 자동으로 Bean 을 주입하려 하는데 이 Bean 은 sessionScope 라서
+    // 그냥 주입하려하면 최초 서버 실행시 주입하려 하기 때문에 오류가 발생한다.
+    // 이하의 "@Lazy" annotation 을 추가하여 서버가 가동된 이후에 Bean 주입을 하게 해야 한다.
+    @Resource(name = "loginMemberBean")
+    @Lazy
+    private MemberInfoBean loginMemberBean;
 
     public boolean checkMemberIdExist(String user_id) {
         String user_name = memberDAO.checkMemberIdExist(user_id);
@@ -21,6 +31,16 @@ public class MemberService {
 
     public void addMemberInfo(MemberInfoBean joinMemberBean) {
         memberDAO.addMemberInfo(joinMemberBean);
+    }
+
+    public void getLoginMemberInfo(MemberInfoBean tempLoginMemberBean) {
+        MemberInfoBean tempLoginMemberBean2 = memberDAO.getLoginMemberInfo(tempLoginMemberBean);
+
+        if (tempLoginMemberBean2 != null) {
+            loginMemberBean.setUser_idx(tempLoginMemberBean2.getUser_idx());
+            loginMemberBean.setUser_name(tempLoginMemberBean2.getUser_name());
+            loginMemberBean.setMemberLogin(true);
+        }
     }
 
 }
