@@ -22,19 +22,27 @@
                 </li>
             </c:forEach>
         </ul>
-        <ul class="navbar-nav ml-auto">
-            <li class="nav-item">
-                <a href="<c:url value="/member/login"/>" class="nav-link">로그인</a>
-            </li>
-            <li class="nav-item">
-                <a href="<c:url value="/member/join"/>" class="nav-link">회원가입</a>
-            </li>
-            <li class="nav-item">
-                <a href="<c:url value="/member/modify"/>" class="nav-link">정보수정</a>
-            </li>
-            <li class="nav-item">
-                <a href="<c:url value="/member/logout"/>" class="nav-link">로그아웃</a>
-            </li>
-        </ul>
+    <ul class="navbar-nav ml-auto">
+        <c:choose>
+            <%-- 로그인 한 경우 --%>
+            <c:when test="${loginMemberBean.memberLogin == true}">
+                <li class="nav-item">
+                    <a href="<c:url value="/member/modify"/>" class="nav-link">정보수정</a>
+                </li>
+                <li class="nav-item">
+                    <a href="<c:url value="/member/logout"/>" class="nav-link">로그아웃</a>
+                </li>
+            </c:when>
+            <%-- 로그인 안한 경우 --%>
+            <c:otherwise>
+                <li class="nav-item">
+                    <a href="<c:url value="/member/login"/>" class="nav-link">로그인</a>
+                </li>
+                <li class="nav-item">
+                    <a href="<c:url value="/member/join"/>" class="nav-link">회원가입</a>
+                </li>
+            </c:otherwise>
+        </c:choose>
+    </ul>
     </div>
 </nav>

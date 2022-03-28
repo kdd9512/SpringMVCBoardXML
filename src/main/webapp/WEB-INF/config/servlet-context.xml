@@ -58,6 +58,15 @@
             <mapping path="/**"/>
             <beans:bean class="interceptor.TopMenuInterceptor"/>
         </interceptor>
+        <interceptor>
+            <mapping path="/member/modify"/>
+            <mapping path="/member/logout"/>
+            <mapping path="/board/*"/>
+            <mapping path="/member/login_*"/>
+            <mapping path="/member/login_pro"/>
+            <exclude-mapping path="/board/main"/>
+            <beans:bean class="interceptor.CheckLoginInterceptor"/>
+        </interceptor>
     </interceptors>
 
     <!-- MessageSources 등록 -->
