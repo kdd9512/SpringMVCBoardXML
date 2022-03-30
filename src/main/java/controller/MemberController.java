@@ -95,9 +95,21 @@ public class MemberController {
     }
 
     @GetMapping("/modify")
-    public String memberConfig() {
+    public String memberConfig(@ModelAttribute("modifyMemberBean") MemberInfoBean modifyMemberBean) {
+
+        memberService.getModifyMemberInfo(modifyMemberBean);
 
         return "/member/modify";
+    }
+
+    @PostMapping("/modify_pro")
+    public String modify_pro(@Valid @ModelAttribute("modifyMemberBean") MemberInfoBean modifyMemberBean,
+                             BindingResult result){
+        if (result.hasErrors()) {
+            return "/member/modify";
+        }
+
+        return "/member/modify_success";
     }
 
 

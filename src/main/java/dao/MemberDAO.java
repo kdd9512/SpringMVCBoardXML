@@ -27,4 +27,7 @@ public class MemberDAO {
         return sqlSessionTemplate.selectOne("member.getLoginMemberInfo", tempLoginMemberBean);
     }
 
+    public MemberInfoBean getModifyMemberInfo(int user_idx) {
+        return sqlSessionTemplate.selectOne("member.getModifyMemberInfo", user_idx);
+    }
 }
