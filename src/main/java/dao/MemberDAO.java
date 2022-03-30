@@ -30,4 +30,8 @@ public class MemberDAO {
     public MemberInfoBean getModifyMemberInfo(int user_idx) {
         return sqlSessionTemplate.selectOne("member.getModifyMemberInfo", user_idx);
     }
+
+    public void modifyMemberInfo(MemberInfoBean modifyMemberBean) {
+        sqlSessionTemplate.update("member.modifyMemberInfo", modifyMemberBean);
+    }
 }
