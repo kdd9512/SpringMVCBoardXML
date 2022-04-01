@@ -1,4 +1,4 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" isELIgnored="false" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <!DOCTYPE html>
@@ -15,7 +15,6 @@
 </head>
 <body>
 
-
 <!-- 상단 메뉴 부분(navbar) -->
 <c:import url="/WEB-INF/views/include/top_menu.jsp"/>
 
@@ -25,25 +24,34 @@
         <div class="col-sm-6">
             <div class="card shadow">
                 <div class="card-body">
-                    <form action="<c:url value="/board/board_read"/>" method="post">
+                    <form action="board_modify.html" method="post">
+                        <div class="form-group">
+                            <label for="board_writer_name">작성자</label>
+                            <input type="text" id="board_writer_name" name="board_writer_name" class="form-control" value="홍길동" disabled="disabled"/>
+                        </div>
+                        <div class="form-group">
+                            <label for="board_date">작성날짜</label>
+                            <input type="text" id="board_date" name="board_date" class="form-control" value="2018-7-20" disabled="disabled"/>
+                        </div>
                         <div class="form-group">
                             <label for="board_subject">제목</label>
-                            <input type="text" id="board_subject" name="board_subject" class="form-control"/>
+                            <input type="text" id="board_subject" name="board_subject" class="form-control" value="제목입니다"/>
                         </div>
                         <div class="form-group">
                             <label for="board_content">내용</label>
-                            <textarea id="board_content" name="board_content" class="form-control" rows="10" style="resize:none"></textarea>
+                            <textarea id="board_content" name="board_content" class="form-control" rows="10" style="resize:none">본문입니다</textarea>
                         </div>
                         <div class="form-group">
                             <label for="board_file">첨부 이미지</label>
-                            <input type="file" id="board_file" name="board_file" class="form-control" accept="image/*"/>
+                            <img src="image/logo.png" width="100%"/>
+                            <input type="file" name="board_file" id="board_file" class="form-control" accept="image/*"/>
                         </div>
                         <div class="form-group">
                             <div class="text-right">
-                                <button type="submit" class="btn btn-primary">작성하기</button>
+                                <button type="submit" class="btn btn-primary">수정완료</button>
+                                <a href="<c:url value="/board/board_read"/>" class="btn btn-info">취소</a>
                             </div>
                         </div>
-
                     </form>
                 </div>
             </div>
