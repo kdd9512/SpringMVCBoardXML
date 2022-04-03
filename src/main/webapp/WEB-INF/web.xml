@@ -67,6 +67,27 @@
         <filter-name>encodingFilter</filter-name>
         <url-pattern>/*</url-pattern>
     </filter-mapping>
+
+    <!--
+        Java 의 경우 MultipartForm 형식의 파일 데이터가 전달되면 StandardServletMultipartResolver 에 자동으로 연결하여 filter 를 적용하나,
+        Xml 의 경우에는 그렇지 못하므로 설정해주어야 한다. 이하는 그 MultipartFilter 설정.
+     -->
+    <filter>
+        <display-name>springMultipartFilter</display-name>
+        <filter-name>springMultipartFilter</filter-name> <!-- 사용할 filter 의 이름. 같은 이름을 갖는 filter-mapping 을 사용함. -->
+        <filter-class>org.springframework.web.multipart.support.MultipartFilter</filter-class>
+        <init-param>
+            <param-name>multipartResolverBeanName</param-name>
+            <param-value>multipartResolver</param-value>
+        </init-param>
+    </filter>
+
+    <!-- filter 정의 -->
+    <filter-mapping>
+        <filter-name>springMultipartFilter</filter-name>
+        <url-pattern>/*</url-pattern> <!-- 모든 경로에서 적용 -->
+    </filter-mapping>
+
 </web-app>
 
 

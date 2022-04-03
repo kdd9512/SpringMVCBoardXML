@@ -1,16 +1,21 @@
 package controller;
 
 import beans.ContentsInfoBean;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import service.BoardService;
 
 import javax.validation.Valid;
 
 @RequestMapping("/board")
 @Controller
 public class BoardController {
+
+    @Autowired
+    private BoardService boardService;
 
     @GetMapping("/main")
     public String boardMain(@RequestParam("board_info_idx") int board_info_idx,
@@ -21,7 +26,9 @@ public class BoardController {
     }
 
     @GetMapping("/write")
-    public String boardWrite(@ModelAttribute("writeContentBean") ContentsInfoBean writeContentBean){
+    public String boardWrite(@ModelAttribute("writeContentBean") ContentsInfoBean writeContentBean,
+                             @RequestParam("board_info_idx") int board_info_idx){
+        writeContentBean.setContent_board_idx(board_info_idx);
         return "/board/write";
     }
 
@@ -31,6 +38,9 @@ public class BoardController {
         if (result.hasErrors()) {
             return "/board/write";
         }
+
+        boardService.addContentInfoBean(writeContentBean);
+
         return "/board/write_success";
     }
 
