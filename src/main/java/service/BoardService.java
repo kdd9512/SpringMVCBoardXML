@@ -13,6 +13,7 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.annotation.Resource;
 import javax.validation.Valid;
 import java.io.File;
+import java.util.List;
 
 @Service
 @PropertySource("/WEB-INF/properties/option.properties")
@@ -51,6 +52,14 @@ public class BoardService {
         writeContentBean.setContent_writer_idx(loginMemberBean.getUser_idx());
         boardDAO.addContentInfo(writeContentBean);
 
+    }
+
+    public String getBoardInfoName(int board_info_idx) {
+        return boardDAO.getBoardInfoName(board_info_idx);
+    }
+
+    public List<ContentsInfoBean> getContentBean(int board_info_idx){
+        return boardDAO.getContentBean(board_info_idx);
     }
 
 }
