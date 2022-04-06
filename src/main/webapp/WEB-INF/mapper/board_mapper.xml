@@ -2,12 +2,14 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="board">
+
     <insert id="addContentInfo" parameterType="beans.ContentsInfoBean">
+        <selectKey keyProperty="content_idx" order="BEFORE" resultType="java.lang.Integer">
+            select max(content_idx) + 1 from content_table ALIAS_FOR_SUBQUERY</selectKey>
         <![CDATA[
         insert into content_table(content_idx, content_subject, content_text,
                                   content_file, content_writer_idx, content_board_idx, content_date)
-        values ((select max(content_idx) + 1 from content_table ALIAS_FOR_SUBQUERY),
-                #{content_subject}, #{content_text}, #{content_file}, #{content_writer_idx},
+        values (#{content_idx}, #{content_subject}, #{content_text}, #{content_file}, #{content_writer_idx},
                 #{content_board_idx}, CURRENT_DATE())
         ]]>
     </insert>
@@ -28,6 +30,15 @@
         from content_table a1, user_table a2
         where a1.content_writer_idx = a2.user_idx and a1.content_board_idx = #{board_info_idx}
         order by a1.content_idx desc
+        ]]>
+    </select>
+
+    <select id="getContentInfo" parameterType="java.lang.Integer" resultType="beans.ContentsInfoBean">
+        <![CDATA[
+        select a2.user_name as content_writer_name, DATE_FORMAT(a1.content_date, '%Y-%m-%d') as content_date,
+                a1.content_subject, a1.content_text, a1.content_file
+        from content_table a1, user_table a2
+        where a1.content_writer_idx = a2.user_idx and a1.content_idx = #{content_idx}
         ]]>
     </select>
 </mapper>

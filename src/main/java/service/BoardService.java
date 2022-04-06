@@ -62,4 +62,8 @@ public class BoardService {
         return boardDAO.getContentBean(board_info_idx);
     }
 
+    public ContentsInfoBean getContentInfo(int content_idx) {
+        return boardDAO.getContentInfo(content_idx);
+    }
+
 }

@@ -24,4 +24,8 @@ public class BoardDAO {
     public List<ContentsInfoBean> getContentBean(int board_info_idx) {
         return sqlSessionTemplate.selectList("board.getContentBean", board_info_idx);
     }
+
+    public ContentsInfoBean getContentInfo(int content_idx) {
+        return sqlSessionTemplate.selectOne("board.getContentInfo", content_idx);
+    }
 }
