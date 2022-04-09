@@ -33,10 +33,11 @@
         ]]>
     </select>
 
+    <!-- 게시글 내용 가져오기. 수정 및 삭제를 위해 필요한 작성자번호 (=content_writer_idx) 를 추가로 가져온다.-->
     <select id="getContentInfo" parameterType="java.lang.Integer" resultType="beans.ContentsInfoBean">
         <![CDATA[
         select a2.user_name as content_writer_name, DATE_FORMAT(a1.content_date, '%Y-%m-%d') as content_date,
-                a1.content_subject, a1.content_text, a1.content_file
+                a1.content_subject, a1.content_text, a1.content_file, a1.content_writer_idx
         from content_table a1, user_table a2
         where a1.content_writer_idx = a2.user_idx and a1.content_idx = #{content_idx}
         ]]>

@@ -1,13 +1,16 @@
 package controller;
 
 import beans.ContentsInfoBean;
+import beans.MemberInfoBean;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import service.BoardService;
 
+import javax.annotation.Resource;
 import javax.validation.Valid;
 import java.util.List;
 
@@ -17,6 +20,10 @@ public class BoardController {
 
     @Autowired
     private BoardService boardService;
+
+    @Resource(name = "loginMemberBean")
+    @Lazy
+    private MemberInfoBean loginMemberBean;
 
     @GetMapping("/main")
     public String boardMain(@RequestParam("board_info_idx") int board_info_idx,
@@ -58,9 +65,14 @@ public class BoardController {
                             Model model){
 
         model.addAttribute("board_info_idx",board_info_idx);
+        model.addAttribute("content_idx",content_idx); // 수정 / 삭제를 위한 글의 번호를 model 에 담는다.
 
         ContentsInfoBean readContentBean = boardService.getContentInfo(content_idx);
-        model.addAttribute("readContentBean",readContentBean);
+        model.addAttribute("readContentBean",readContentBean); // 게시글의 내용이 담긴 attribute
+
+        // 사용자 정보와 글 작성자 번호를 비교하기 위한 attribute 주입.
+        // sql 로 가져온 content_writer_idx 의 값과 비교하게 될 것.
+        model.addAttribute("loginMemberBean",loginMemberBean);
 
         return "/board/read";
     }
@@ -69,6 +81,12 @@ public class BoardController {
     public String boardModify(){
 
         return "/board/modify";
+    }
+
+    @GetMapping("/not_writer")
+    public String not_writer(){
+
+        return "/board/not_writer";
     }
 
     @GetMapping("/remove")
