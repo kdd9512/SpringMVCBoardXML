@@ -5,7 +5,8 @@
 
     <insert id="addContentInfo" parameterType="beans.ContentsInfoBean">
         <selectKey keyProperty="content_idx" order="BEFORE" resultType="java.lang.Integer">
-            select max(content_idx) + 1 from content_table ALIAS_FOR_SUBQUERY</selectKey>
+            select max(content_idx) + 1 from content_table ALIAS_FOR_SUBQUERY
+        </selectKey>
         <![CDATA[
         insert into content_table(content_idx, content_subject, content_text,
                                   content_file, content_writer_idx, content_board_idx, content_date)
@@ -25,10 +26,14 @@
     <!-- ** 반환 타입은 ContentsInfoBean 이다. 제네릭 List 를 써서 혼동될 수 있으나, 결국 ContentsInfoBean 에 있는 변수들만 취급하기 때문. -->
     <select id="getContentBean" parameterType="java.lang.Integer" resultType="beans.ContentsInfoBean">
         <![CDATA[
-        select a1.content_idx, a1.content_subject, a2.user_name as content_writer_name,
+        select a1.content_idx,
+               a1.content_subject,
+               a2.user_name                             as content_writer_name,
                DATE_FORMAT(a1.content_date, '%Y-%m-%d') as content_date
-        from content_table a1, user_table a2
-        where a1.content_writer_idx = a2.user_idx and a1.content_board_idx = #{board_info_idx}
+        from content_table a1,
+             user_table a2
+        where a1.content_writer_idx = a2.user_idx
+          and a1.content_board_idx = #{board_info_idx}
         order by a1.content_idx desc
         ]]>
     </select>
@@ -36,10 +41,26 @@
     <!-- 게시글 내용 가져오기. 수정 및 삭제를 위해 필요한 작성자번호 (=content_writer_idx) 를 추가로 가져온다.-->
     <select id="getContentInfo" parameterType="java.lang.Integer" resultType="beans.ContentsInfoBean">
         <![CDATA[
-        select a2.user_name as content_writer_name, DATE_FORMAT(a1.content_date, '%Y-%m-%d') as content_date,
-                a1.content_subject, a1.content_text, a1.content_file, a1.content_writer_idx
-        from content_table a1, user_table a2
-        where a1.content_writer_idx = a2.user_idx and a1.content_idx = #{content_idx}
+        select a2.user_name                             as content_writer_name,
+               DATE_FORMAT(a1.content_date, '%Y-%m-%d') as content_date,
+               a1.content_subject,
+               a1.content_text,
+               a1.content_file,
+               a1.content_writer_idx
+        from content_table a1,
+             user_table a2
+        where a1.content_writer_idx = a2.user_idx
+          and a1.content_idx = #{content_idx}
         ]]>
     </select>
+
+    <update id="modifyContentInfo" parameterType="beans.ContentsInfoBean">
+        <![CDATA[
+        update content_table
+        set content_subject = #{content_subject},
+            content_text    = #{content_text},
+            content_file    = #{content_file, jdbcType=VARCHAR}
+        where content_idx = #{content_idx}
+        ]]>
+    </update>
 </mapper>

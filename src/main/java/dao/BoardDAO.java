@@ -28,4 +28,9 @@ public class BoardDAO {
     public ContentsInfoBean getContentInfo(int content_idx) {
         return sqlSessionTemplate.selectOne("board.getContentInfo", content_idx);
     }
+
+    public void modifyContentInfo(ContentsInfoBean modifyContentBean) {
+        sqlSessionTemplate.update("board.modifyContentInfo",modifyContentBean);
+    }
+
 }
