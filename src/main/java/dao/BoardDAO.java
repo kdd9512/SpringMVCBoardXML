@@ -33,4 +33,8 @@ public class BoardDAO {
         sqlSessionTemplate.update("board.modifyContentInfo",modifyContentBean);
     }
 
+    public void removeContentInfo(int content_idx) {
+        sqlSessionTemplate.delete("board.removeContentInfo", content_idx);
+    }
+
 }

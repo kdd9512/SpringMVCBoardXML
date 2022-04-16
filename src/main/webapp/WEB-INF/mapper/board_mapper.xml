@@ -63,4 +63,13 @@
         where content_idx = #{content_idx}
         ]]>
     </update>
+
+    <delete id="removeContentInfo" parameterType="java.lang.Integer">
+        <![CDATA[
+        delete
+        from content_table
+        where content_idx = #{content_idx}
+        ]]>
+    </delete>
+
 </mapper>
