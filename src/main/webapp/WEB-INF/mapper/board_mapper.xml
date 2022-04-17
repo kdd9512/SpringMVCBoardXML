@@ -24,7 +24,8 @@
     </select>
 
     <!-- ** 반환 타입은 ContentsInfoBean 이다. 제네릭 List 를 써서 혼동될 수 있으나, 결국 ContentsInfoBean 에 있는 변수들만 취급하기 때문. -->
-    <select id="getContentBean" parameterType="java.lang.Integer" resultType="beans.ContentsInfoBean">
+    <select id="getContentBean"
+            parameterType="java.lang.Integer" resultType="beans.ContentsInfoBean">
         <![CDATA[
         select a1.content_idx,
                a1.content_subject,
@@ -71,5 +72,13 @@
         where content_idx = #{content_idx}
         ]]>
     </delete>
+
+    <select id="getContentCnt" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+        <![CDATA[
+        select count(*)
+        from content_table
+        where content_board_idx = #{content_board_idx}
+        ]]>
+    </select>
 
 </mapper>
