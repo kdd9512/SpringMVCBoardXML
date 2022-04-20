@@ -68,6 +68,7 @@
             <mapping path="/member/logout"/>
             <mapping path="/board/*"/>
             <exclude-mapping path="/board/main"/>
+            <exclude-mapping path="/board/read*"/>
             <beans:bean class="interceptor.CheckLoginInterceptor"/>
         </interceptor>
         <interceptor>

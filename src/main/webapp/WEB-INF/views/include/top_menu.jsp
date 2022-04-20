@@ -1,5 +1,5 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" isELIgnored="false"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%-- 종종 주소에 jsessionid 라고 붙는 현상 방지 --%>
 <c:set var="root" value="${pageContext.request.contextPath }/"/>
 <nav class="navbar navbar-expand-md bg-dark navbar-dark fixed-top shadow-lg">
@@ -17,7 +17,7 @@
         <ul class="navbar-nav">
             <c:forEach var="obj" items="${topMenuList}">
                 <li class="nav-item">
-                    <a href="<c:url value="/board/main?board_info_idx=${obj.board_info_idx}"/>"
+                    <a href="<c:url value="/board/main?board_info_idx=${obj.board_info_idx}&page=1"/>"
                        class="nav-link">${obj.board_info_name}</a>
                 </li>
             </c:forEach>
